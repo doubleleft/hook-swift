@@ -63,11 +63,11 @@ public class Client {
 
     private func getHeaders() -> [String: String?] {
         var headers = [
-            "X-App-Id": self.app_id,
-            "X-App-Key": self.key
-        ];
+                "X-App-Id": self.app_id,
+                "X-App-Key": self.key
+            ],
+            authToken = self.auth.getToken();
 
-        let authToken = self.auth.getToken();
         if authToken != nil {
             headers["X-Auth-Token"] = authToken;
         }

@@ -40,23 +40,23 @@ public class Client {
         NSException(name: "NotImplementedException", reason: "Not implemented.", userInfo: nil).raise();
     }
 
-    public func post(segments: String, data: [String: AnyObject]? = nil) -> Request {
+    public func post(segments: String, data: [String: AnyObject?]? = nil) -> Request {
         return self.request(segments, method: "POST", data: data);
     }
 
-    public func get(segments: String, data: [String: AnyObject]? = nil) -> Request {
+    public func get(segments: String, data: [String: AnyObject?]? = nil) -> Request {
         return self.request(segments, method: "GET", data: data);
     }
 
-    public func put(segments: String, data: [String: AnyObject]? = nil) -> Request {
+    public func put(segments: String, data: [String: AnyObject?]? = nil) -> Request {
         return self.request(segments, method: "PUT", data: data);
     }
 
-    public func remove(segments: String, data: [String: AnyObject]? = nil) -> Request {
+    public func remove(segments: String, data: [String: AnyObject?]? = nil) -> Request {
         return self.request(segments, method: "DELETE", data: data);
     }
 
-    func request(segments: String, method: String, data: [String: AnyObject]? = nil) -> Request {
+    func request(segments: String, method: String, data: [String: AnyObject?]? = nil) -> Request {
         var req = Request(url: self.endpoint + segments, method: method, headers: self.getHeaders(), data: self.getPayload(data));
         return req.execute();
     }
@@ -75,10 +75,8 @@ public class Client {
         return headers;
     }
 
-    private func getPayload(data:AnyObject?) -> [String: AnyObject]? {
-        return [
-            "p": "p"
-        ];
+    private func getPayload(data : [String: AnyObject?]?) -> [String: AnyObject?]? {
+        return data;
     }
 
 }

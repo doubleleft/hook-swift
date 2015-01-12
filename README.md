@@ -5,6 +5,12 @@ Swift client for [hook](https://github.com/doubleleft/hook).
 
 **Currently a work in process. Doesn't work yet.**
 
+TODO:
+---
+
+Use [SwiftData](https://github.com/ryanfowler/SwiftData) or
+[SQLiteDB](https://github.com/FahimF/SQLiteDB) to store local auth data.
+
 Requirements:
 ---
 

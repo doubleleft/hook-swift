@@ -10,9 +10,9 @@ import Alamofire;
 
 public class Request {
 
-    var request : Alamofire.Request;
+    var request : Alamofire.Request? = nil;
 
-    public init(url : String, method: String, headers: [String: String?], data : [String: AnyObject]? = nil) {
+    public init(url : String, method: String, headers: [String: String?], data : [String: AnyObject?]? = nil) {
         let endpointUrl = NSURL(string: url);
 
         let mutableURLRequest = NSMutableURLRequest(URL: endpointUrl!)
@@ -22,7 +22,7 @@ public class Request {
             mutableURLRequest.setValue(value, forHTTPHeaderField: name)
         }
 
-        let manager = Alamofire.Manager.sharedInstance
+        var manager = Alamofire.Manager.sharedInstance;
         self.request = manager.request(ParameterEncoding.JSON.encode(mutableURLRequest, parameters: data).0)
     }
 
@@ -40,15 +40,15 @@ public class Request {
     }
 
     public func suspend() {
-        self.request.suspend()
+        self.request?.suspend()
     }
 
     public func resume() {
-        self.request.resume()
+        self.request?.resume()
     }
 
     public func cancel() {
-        self.request.cancel()
+        self.request?.cancel()
     }
 
 }

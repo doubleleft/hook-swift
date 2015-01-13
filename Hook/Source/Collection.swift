@@ -157,16 +157,13 @@ public class Collection {
         return self;
     }
 
-    public func sort(field : String, direction : AnyObject? = nil) -> Collection {
-        var _dir : String = "asc";
+    public func sort(field : String, direction : Int = 1) -> Collection {
+        self.ordering.append([field, (direction == -1) ? "desc" : "asc"]);
+        return self;
+    }
 
-        if direction != nil && direction is Int {
-            let intDirection : Int = direction! as Int;
-            _dir = (intDirection == -1) ? "desc" : "asc";
-        }
-
-        self.ordering.append([field, _dir]);
-
+    public func sort(field : String, direction : String) -> Collection {
+        self.ordering.append([field, direction.lowercaseString]);
         return self;
     }
 

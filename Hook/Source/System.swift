@@ -8,7 +8,7 @@
 
 import Foundation
 
-class System {
+public class System {
     var client : Client;
 
     init(client:Client) {

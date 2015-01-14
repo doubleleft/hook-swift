@@ -10,15 +10,15 @@ let AUTH_DATA_KEY : String = "hook-auth-data";
 let AUTH_TOKEN_KEY : String = "hook-auth-token";
 let AUTH_TOKEN_EXPIRATION : String = "hook-auth-token-expiration";
 
-class Auth {
+public class Auth {
     var client : Client;
     var currentUser : [String: AnyObject]? = nil;
 
     init(client: Client) {
-        self.client = client;
+        self.client = client
     }
 
-    func getToken() -> String? {
+    public func getToken() -> String? {
         return nil;
     }
 }

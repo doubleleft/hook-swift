@@ -19,6 +19,6 @@ class Auth {
     }
 
     func getToken() -> String? {
-        return "";
+        return nil;
     }
 }

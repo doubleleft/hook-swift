@@ -7,6 +7,7 @@
 //
 
 import Foundation;
+import Alamofire;
 
 public class Client {
 
@@ -40,28 +41,28 @@ public class Client {
         NSException(name: "NotImplementedException", reason: "Not implemented.", userInfo: nil).raise();
     }
 
-    public func post(segments: String, data: [String: AnyObject?]? = nil) -> Request {
-        return self.request(segments, method: "POST", data: data);
+    public func post(segments: String, data: [String: AnyObject]? = nil) -> Request {
+        return self.request(segments, method: Alamofire.Method.POST, data: data);
     }
 
-    public func get(segments: String, data: [String: AnyObject?]? = nil) -> Request {
-        return self.request(segments, method: "GET", data: data);
+    public func get(segments: String, data: [String: AnyObject]? = nil) -> Request {
+        return self.request(segments, method: Alamofire.Method.GET, data: data);
     }
 
-    public func put(segments: String, data: [String: AnyObject?]? = nil) -> Request {
-        return self.request(segments, method: "PUT", data: data);
+    public func put(segments: String, data: [String: AnyObject]? = nil) -> Request {
+        return self.request(segments, method: Alamofire.Method.PUT, data: data);
     }
 
-    public func remove(segments: String, data: [String: AnyObject?]? = nil) -> Request {
-        return self.request(segments, method: "DELETE", data: data);
+    public func remove(segments: String, data: [String: AnyObject]? = nil) -> Request {
+        return self.request(segments, method: Alamofire.Method.DELETE, data: data);
     }
 
-    func request(segments: String, method: String, data: [String: AnyObject?]? = nil) -> Request {
+    func request(segments: String, method: Alamofire.Method, data: [String: AnyObject]? = nil) -> Request {
         var req = Request(url: self.endpoint + segments, method: method, headers: self.getHeaders(), data: self.getPayload(data));
         return req.execute();
     }
 
-    private func getHeaders() -> [String: String?] {
+    private func getHeaders() -> [String: String] {
         var headers = [
                 "X-App-Id": self.app_id,
                 "X-App-Key": self.key
@@ -69,13 +70,14 @@ public class Client {
             authToken = self.auth.getToken();
 
         if authToken != nil {
-            headers["X-Auth-Token"] = authToken;
+            let token : String = authToken! as String;
+            headers["X-Auth-Token"] = token;
         }
 
         return headers;
     }
 
-    private func getPayload(data : [String: AnyObject?]?) -> [String: AnyObject?]? {
+    private func getPayload(data : [String: AnyObject]?) -> [String: AnyObject]? {
         return data;
     }
 

@@ -11,13 +11,26 @@ import Hook
 
 class ViewController: UIViewController {
 
+    var req : Request? = nil;
+
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        
-        var hook = Hook.Client(app_id: "1", key: "09c835703df4f78da6fffe957d2e2b6f", endpoint: "http://localhost:4665");
+
+        var hook = Hook.Client(app_id: "1", key: "09c835703df4f78da6fffe957d2e2b6f", endpoint: "http://localhost:4665/");
         var collection = hook.collection("something");
-        hook.collection("hello");
+        req = hook.collection("items").create([
+            "name": "Hello there!"
+        ]).onComplete { (data) in
+            println("onComplete!")
+            println(data)
+        }.onSuccess { (data) in
+            println("onSuccess!")
+            println(data)
+        }.onError { (data) in
+            println("onError!")
+            println(data)
+        };
     }
 
     override func didReceiveMemoryWarning() {

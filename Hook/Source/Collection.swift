@@ -13,8 +13,8 @@ public class Collection {
         name : String,
         segments : String,
 
-        options : [String: AnyObject?] = [String: AnyObject?](),
-        wheres : [[AnyObject?]] = [],
+        options : [String: AnyObject] = [String: AnyObject](),
+        wheres : [[AnyObject]] = [],
         ordering : [[String]] = [],
         _group : [String] = [],
         _limit : UInt? = nil,
@@ -28,7 +28,7 @@ public class Collection {
     }
 
     func reset() {
-        self.options = [String: AnyObject?]();
+        self.options = [String: AnyObject]();
         self.wheres = [];
         self.ordering = [];
         self._group = [];
@@ -37,7 +37,7 @@ public class Collection {
         self._remember = nil;
     }
 
-    public func create(data : [String: AnyObject?]) -> Request {
+    public func create(data : [String: AnyObject]) -> Request {
         return self.client.post(self.segments, data: data);
     }
 
@@ -49,9 +49,13 @@ public class Collection {
         return self.client.get(self.segments + "/" + (_id as String), data: self.buildQuery());
     }
 
-    public func count(field : AnyObject? = nil) -> Request {
-        var _field : String = (field is String) ? field as String : "*";
-        self.options["aggregation"] = ["method": "count", "field": _field];
+    public func count() -> Request {
+        self.options["aggregation"] = ["method": "count", "field": "*"];
+        return self.get();
+    }
+
+    public func count(field : String) -> Request {
+        self.options["aggregation"] = ["method": "count", "field": field];
         return self.get();
     }
 
@@ -95,7 +99,7 @@ public class Collection {
         return self.client.remove(path, data: self.buildQuery());
     }
 
-    public func update(_id : String, data : [String: AnyObject?]) -> Request {
+    public func update(_id : String, data : [String: AnyObject]) -> Request {
         return self.client.post(self.segments + "/" + _id, data: data);
     }
 
@@ -114,70 +118,70 @@ public class Collection {
         return self.client.put(self.segments, data: self.buildQuery());
     }
 
-    public func select(fields : String...) -> Collection {
+    public func select(fields : String...) -> Self {
         self.options["select"] = fields;
         return self;
     }
 
-    public func filter(field : String, value : AnyObject, boolean : String = "and") -> Collection {
+    public func filter(field : String, value : AnyObject, boolean : String = "and") -> Self {
         return self.addFilter(field, operation: "=", value: value, boolean: boolean);
     }
 
-    public func filter(field : String, operation : String, value : AnyObject, boolean : String = "and") -> Collection {
+    public func filter(field : String, operation : String, value : AnyObject, boolean : String = "and") -> Self {
         return self.addFilter(field, operation: "=", value: value, boolean: boolean);
     }
 
-    public func filter(fields : [String: AnyObject?]) -> Collection {
+    public func filter(fields : [String: AnyObject]) -> Self {
         for (field, value) in fields {
             return self.addFilter(field, operation: "=", value: value);
         }
         return self;
     }
 
-    public func orFilter(field : String, value : AnyObject) -> Collection {
+    public func orFilter(field : String, value : AnyObject) -> Self {
         return self.addFilter(field, operation: "=", value: value, boolean: "or");
     }
 
-    public func orFilter(field : String, operation : String, value : AnyObject) -> Collection {
+    public func orFilter(field : String, operation : String, value : AnyObject) -> Self {
         return self.addFilter(field, operation: operation, value: value, boolean: "or");
     }
 
-    public func join(fields : String...) -> Collection {
+    public func join(fields : String...) -> Self {
         self.options["with"] = fields
         return self
     }
 
-    public func distinct() -> Collection {
+    public func distinct() -> Self {
         self.options["distinct"] = true
         return self
     }
 
-    public func group(fields : String...) -> Collection {
+    public func group(fields : String...) -> Self {
         self._group = fields;
         return self;
     }
 
-    public func sort(field : String, direction : Int = 1) -> Collection {
+    public func sort(field : String, direction : Int = 1) -> Self {
         self.ordering.append([field, (direction == -1) ? "desc" : "asc"]);
         return self;
     }
 
-    public func sort(field : String, direction : String) -> Collection {
+    public func sort(field : String, direction : String) -> Self {
         self.ordering.append([field, direction.lowercaseString]);
         return self;
     }
 
-    public func limit(i : UInt) -> Collection {
+    public func limit(i : UInt) -> Self {
         self._limit = i;
         return self;
     }
 
-    public func offset(i : UInt) -> Collection {
+    public func offset(i : UInt) -> Self {
         self._offset = i;
         return self;
     }
 
-    public func remember(i : UInt) -> Collection {
+    public func remember(i : UInt) -> Self {
         self._remember = i;
         return self;
     }
@@ -185,7 +189,7 @@ public class Collection {
     /* public func channel(options) { */
     /* } */
 
-    func addFilter(field : String, operation : String, value : AnyObject?, boolean : String = "and") -> Collection {
+    func addFilter(field : String, operation : String, value : AnyObject, boolean : String = "and") -> Self {
         self.wheres.append([field, operation.lowercaseString, value, boolean]);
         return self;
     }
@@ -200,11 +204,7 @@ public class Collection {
 
         // apply wheres
         if (self.wheres.count > 0) {
-            var q : [AnyObject?] = [AnyObject?]();
-            for arr : [AnyObject?] in self.wheres {
-                q.append(arr);
-            }
-            query["q"] = [];
+            query["q"] = self.wheres;
         }
 
         // apply ordering

@@ -11,9 +11,11 @@ import Alamofire;
 
 public class Client {
 
-    var endpoint : String = "http://localhost:4665/",
-        app_id : String,
-        key : String;
+    public var endpoint : String,
+               app_id : String,
+               key : String;
+
+    var storage : Storage;
 
     var auth : Auth {
         return Auth(client: self);
@@ -31,6 +33,8 @@ public class Client {
         self.app_id = app_id;
         self.key = key;
         self.endpoint = endpoint;
+
+        self.storage = Storage(id: app_id);
     }
 
     public func collection(name: String) -> Collection {

@@ -37,6 +37,20 @@
 			remoteGlobalIDString = 1BBC65E71A62FFB5004E4836;
 			remoteInfo = Hook;
 		};
+		1B7425741A6B5F7A005AE288 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 1BE80A991A62FDF600973FA5 /* Hook.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 1B141DDA1A6B55C700FB8754;
+			remoteInfo = "Hook OSX";
+		};
+		1B7425761A6B5F7A005AE288 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 1BE80A991A62FDF600973FA5 /* Hook.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 1B141DE41A6B55C800FB8754;
+			remoteInfo = HookTests;
+		};
 		1BE80A8A1A62FA2E00973FA5 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 1BE80A6C1A62FA2E00973FA5 /* Project object */;
@@ -83,6 +97,8 @@
 			children = (
 				1B733F561A6300EF00F2F251 /* Hook.framework */,
 				1B733F581A6300EF00F2F251 /* HookTests.xctest */,
+				1B7425751A6B5F7A005AE288 /* Hook.framework */,
+				1B7425771A6B5F7A005AE288 /* HookTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -239,6 +255,20 @@
 			fileType = wrapper.cfbundle;
 			path = HookTests.xctest;
 			remoteRef = 1B733F571A6300EF00F2F251 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		1B7425751A6B5F7A005AE288 /* Hook.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = Hook.framework;
+			remoteRef = 1B7425741A6B5F7A005AE288 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		1B7425771A6B5F7A005AE288 /* HookTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = HookTests.xctest;
+			remoteRef = 1B7425761A6B5F7A005AE288 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */

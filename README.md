@@ -3,22 +3,16 @@ hook-swift
 
 Swift client for [hook](https://github.com/doubleleft/hook).
 
-Dependencies
----
+**Not working yet.**
 
-This project depends on the following submodules:
-
-- [Alamofire](https://github.com/Alamofire/Alamofire/) for HTTP handling
-- [SwiftyJSON](https://github.com/SwiftyJSON/SwiftyJSON) for friendly JSON
-- [SQLite.swift](https://github.com/stephencelis/SQLite.swift) for local storage
-
-Requirements:
+Requirements
 ---
 
 - Xcode 6.1+
 - iOS 7.0+ / Mac OS X 10.9+
-- Install [Alamofire](https://github.com/Alamofire/Alamofire#installation) in
-  your app.
+- [Alamofire](https://github.com/Alamofire/Alamofire/) for HTTP handling
+- [SwiftyJSON](https://github.com/SwiftyJSON/SwiftyJSON) for friendly JSON
+- [SQLite.swift](https://github.com/stephencelis/SQLite.swift) for local storage
 
 How to build
 ---

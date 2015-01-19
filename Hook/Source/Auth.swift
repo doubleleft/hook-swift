@@ -7,7 +7,7 @@
 //
 
 import Foundation;
-import SwiftyJSON;
+//import SwiftyJSON;
 
 let AUTH_DATA_KEY : String = "hook-auth-data";
 let AUTH_TOKEN_KEY : String = "hook-auth-token";
@@ -16,7 +16,7 @@ let AUTH_TOKEN_EXPIRATION : String = "hook-auth-token-expiration";
 public class Auth {
     var client : Client;
 
-    var currentUser : SwiftyJSON.JSON? = nil;
+    var currentUser : JSON? = nil;
 
     init(client: Client) {
         self.client = client;
@@ -28,7 +28,7 @@ public class Auth {
 
         // Fill current user only when it isn't expired yet.
         if (currentUser != "" && (now.compare(tokenExpiration!) == NSComparisonResult.OrderedDescending)) {
-            self.currentUser = SwiftyJSON.JSON(currentUser);
+            self.currentUser = JSON(currentUser);
         }
     }
 
@@ -91,7 +91,7 @@ public class Auth {
         return self.setCurrentUser(nil);
     }
 
-    public func setCurrentUser(newValue: SwiftyJSON.JSON?) -> Self {
+    public func setCurrentUser(newValue: JSON?) -> Self {
         if newValue == nil {
             // TODO: trigger logout event
             // self.trigger('logout', self.currentUser);
@@ -111,7 +111,7 @@ public class Auth {
         return self;
     }
 
-    func registerToken(data : SwiftyJSON.JSON) {
+    func registerToken(data : JSON) {
         if data["token"].stringValue != "" {
             self.client.storage.set(self.client.app_id + "-" + AUTH_TOKEN_KEY, value: data["token"]["token"].stringValue);
             self.client.storage.set(self.client.app_id + "-" + AUTH_TOKEN_EXPIRATION, value: data["token"]["expire_at"].stringValue);

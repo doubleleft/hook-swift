@@ -22,18 +22,18 @@ class ViewController: UIViewController {
         req = hook.collection("items").create([
             "name": "Hello there!"
         ])
-        /* .onSuccess { (data) in */
-        /*     println("onSuccess!") */
-        /*     println(data) */
-        /* } */
-        /* .onComplete { (data) in */
-        /*     println("onComplete!") */
-        /*     println(data) */
-        /* } */
-        /* .onError { (data) in */
-        /*     println("onError!") */
-        /*     println(data) */
-        /* } */
+         .onSuccess { (data) in 
+             println("onSuccess!") 
+             println(data) 
+         } 
+         .onComplete { (data) in 
+             println("onComplete!") 
+             println(data) 
+         } 
+         .onError { (data) in 
+             println("onError!") 
+             println(data) 
+         } 
 
     }
 

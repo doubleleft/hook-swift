@@ -7,7 +7,7 @@
 //
 
 import Alamofire;
-import SwiftyJSON;
+//import SwiftyJSON;
 
 public class Request {
 
@@ -23,35 +23,35 @@ public class Request {
         return self;
     }
 
-    public func onSuccess(completionHandler: (SwiftyJSON.JSON) -> Void) -> Self {
+    public func onSuccess(completionHandler: (JSON) -> Void) -> Self {
         self.request.response { (request, response, data, error) in
             if error == nil {
-                completionHandler(SwiftyJSON.JSON(data!));
+                completionHandler(JSON(data!));
             }
         }
         return self
     }
 
-    public func onError(completionHandler: (SwiftyJSON.JSON) -> Void) -> Self {
+    public func onError(completionHandler: (JSON) -> Void) -> Self {
         self.request.response { (request, response, data, error) in
             if error != nil {
-                completionHandler(SwiftyJSON.JSON(data!));
+                completionHandler(JSON(data!));
             }
         }
         return self
     }
 
     // alias to onError
-    public func onFail(completionHandler: (SwiftyJSON.JSON) -> Void) -> Self {
+    public func onFail(completionHandler: (JSON) -> Void) -> Self {
         return self.onError(completionHandler)
     }
 
-    public func onComplete(completionHandler: (SwiftyJSON.JSON) -> Void) -> Self {
+    public func onComplete(completionHandler: (JSON) -> Void) -> Self {
         self.request.response { (request, response, data, error) in
             if error == nil {
-                completionHandler(SwiftyJSON.JSON(data!));
+                completionHandler(JSON(data!));
             } else {
-                completionHandler(SwiftyJSON.JSON.nullJSON);
+                completionHandler(JSON.nullJSON);
             }
         }
         return self;

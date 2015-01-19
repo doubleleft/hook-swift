@@ -90,11 +90,18 @@ public class Collection {
         return self.client.post(self.segments, data: self.buildQuery());
     }
 
-    public func remove(_id : AnyObject? = nil) -> Request {
+    public func remove(_id : Int? = nil) -> Request {
         var path : String = self.segments;
         if (_id != nil) {
-            let _idString : String = _id! as String;
-            path += "/" + _idString;
+            path += "/" + String(_id!);
+        }
+        return self.client.remove(path, data: self.buildQuery());
+    }
+    
+    public func remove(_id : String? = nil) -> Request {
+        var path : String = self.segments;
+        if (_id != nil) {
+            path += "/" + _id!;
         }
         return self.client.remove(path, data: self.buildQuery());
     }

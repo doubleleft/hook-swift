@@ -36,9 +36,9 @@ public class Request {
     }
 
     public func onError(completionHandler: (JSON) -> Void) -> Self {
-        self.request.response { (request, response, data, error) in
+        self.request.responseString { (request, response, str, error) in
             if let data = str?.dataUsingEncoding(NSUTF8StringEncoding) {
-                completionHandler(JSON(data!));
+                completionHandler(JSON(data: data));
             }
         }
         return self

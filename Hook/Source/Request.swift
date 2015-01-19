@@ -7,6 +7,7 @@
 //
 
 import Alamofire;
+import Foundation;
 //import SwiftyJSON;
 
 public class Request {
@@ -24,9 +25,11 @@ public class Request {
     }
 
     public func onSuccess(completionHandler: (JSON) -> Void) -> Self {
-        self.request.response { (request, response, data, error) in
-            if error == nil {
-                completionHandler(JSON(data!));
+        self.request.responseString { (request, response, str, error) in
+            if let data = str?.dataUsingEncoding(NSUTF8StringEncoding) {
+                completionHandler(JSON(data: data));
+            } else {
+                println("SOMETHING IS WRONG \(str)")
             }
         }
         return self
@@ -34,7 +37,7 @@ public class Request {
 
     public func onError(completionHandler: (JSON) -> Void) -> Self {
         self.request.response { (request, response, data, error) in
-            if error != nil {
+            if let data = str?.dataUsingEncoding(NSUTF8StringEncoding) {
                 completionHandler(JSON(data!));
             }
         }
@@ -47,9 +50,11 @@ public class Request {
     }
 
     public func onComplete(completionHandler: (JSON) -> Void) -> Self {
-        self.request.response { (request, response, data, error) in
+        self.request.responseString { (request, response, str, error) in
             if error == nil {
-                completionHandler(JSON(data!));
+                if let data = str?.dataUsingEncoding(NSUTF8StringEncoding) {
+                    completionHandler(JSON(data: data));
+                }
             } else {
                 completionHandler(JSON.nullJSON);
             }

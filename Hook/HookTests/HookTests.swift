@@ -38,11 +38,11 @@ class HookTests: XCTestCase {
             }
             
             
-            //expectation.fulfill()
+            expectation.fulfill()
         }).onError({ (data) in
             XCTAssert(false, "Can't create object")
             
-            //expectation.fulfill()
+            expectation.fulfill()
         });
         
         // Expectation timeout

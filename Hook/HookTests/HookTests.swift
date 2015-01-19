@@ -15,7 +15,7 @@ class HookTests: XCTestCase {
     
     override func setUp() {
         super.setUp()
-        hook = Hook.Client(app_id: "1", key: "09c835703df4f78da6fffe957d2e2b6f", endpoint: "http://127.0.0.1:4665/");
+        hook = Hook.Client(app_id: "1", key: "09c835703df4f78da6fffe957d2e2b6f", endpoint: "http://localhost:4665/");
     }
     
     override func tearDown() {

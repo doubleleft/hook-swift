@@ -235,7 +235,7 @@ public class Collection {
             "distinct": "distinct"  /* use distinct operation */
         ];
 
-        for (short, long) in shortnames {
+        for (long, short) in shortnames {
             if (self.options[long] != nil) {
                 query[short] = self.options[long]!;
             }

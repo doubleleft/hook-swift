@@ -17,7 +17,29 @@ public class Request {
     public init(url : String, method: Alamofire.Method, headers: [String: String], data : [String: AnyObject]? = nil) {
         let manager = Alamofire.Manager.sharedInstance
         manager.session.configuration.HTTPAdditionalHeaders = headers
-        self.request = Alamofire.request(method, url, parameters: data, encoding: Alamofire.ParameterEncoding.JSON)
+        
+        if method == Alamofire.Method.GET {
+            
+            self.request = Alamofire.request(method, url, parameters: data, encoding: Alamofire.ParameterEncoding.Custom({ (URLRequest, parameters) -> (NSURLRequest, NSError?) in
+                if parameters == nil {
+                    return (URLRequest.URLRequest, nil)
+                }
+                //
+                func escape(string: String) -> String {
+                    let legalURLCharactersToBeEscaped: CFStringRef = ":/?&=;+!@#$()',*"
+                    return CFURLCreateStringByAddingPercentEscapes(nil, string, nil, legalURLCharactersToBeEscaped, CFStringBuiltInEncodings.UTF8.rawValue)
+                }
+                //
+                var mutableURLRequest: NSMutableURLRequest! = URLRequest.URLRequest.mutableCopy() as NSMutableURLRequest
+                if let URLComponents = NSURLComponents(URL: mutableURLRequest.URL!, resolvingAgainstBaseURL: false){
+                    URLComponents.percentEncodedQuery = escape(JSON(parameters!).rawString()!)
+                    mutableURLRequest.URL = URLComponents.URL
+                }
+                return (mutableURLRequest, nil)
+            }))
+        } else {
+            self.request = Alamofire.request(method, url, parameters: data, encoding: Alamofire.ParameterEncoding.JSON)
+        }
     }
 
     public func execute() -> Self {
@@ -29,7 +51,7 @@ public class Request {
             if let data = str?.dataUsingEncoding(NSUTF8StringEncoding) {
                 completionHandler(JSON(data: data));
             } else {
-                println("SOMETHING IS WRONG \(str)")
+                println("Hook.Request: SOMETHING IS WRONG \(str)")
             }
         }
         return self

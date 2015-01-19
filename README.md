@@ -5,6 +5,10 @@ Swift client for [hook](https://github.com/doubleleft/hook).
 
 **Not working yet.**
 
+**Important:** You need to include `SwiftyJSON.swift` file manually in your
+project due an [swiftc
+issue](https://github.com/SwiftyJSON/SwiftyJSON/issues/67).
+
 Requirements
 ---
 

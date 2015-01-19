@@ -15,7 +15,7 @@ class HookTests: XCTestCase {
     
     override func setUp() {
         super.setUp()
-        hook = Hook.Client(app_id: "1", key: "09c835703df4f78da6fffe957d2e2b6f", endpoint: "http://localhost:4665/");
+        hook = Hook.Client(app_id: "1", key: "09c835703df4f78da6fffe957d2e2b6f", endpoint: "http://127.0.0.1:4665/");
     }
     
     override func tearDown() {
@@ -83,36 +83,27 @@ class HookTests: XCTestCase {
         }
     }
     
-//    func testObjectFiltering() {
-//        var expectation = expectationWithDescription("create")
-//        
-//        hook?.collection("items").create([
-//            "name": "Hello there!"
-//            ]).onSuccess({ (data) in
-//                XCTAssert(true, "Object created successfully")
-//                XCTAssert(data != nil, "Created object must be returned")
-//                
-//                if let name = data["name"].string {
-//                    XCTAssertEqual(name, "Hello there!", "Object created must have values sent")
-//                } else {
-//                    XCTFail("Can't retrieve 'name' key of object");
-//                }
-//                
-//                
-//                expectation.fulfill()
-//            }).onError({ (data) in
-//                XCTAssert(false, "Can't create object")
-//                
-//                expectation.fulfill()
-//            });
-//        
-//        // Expectation timeout
-//        waitForExpectationsWithTimeout(10) { (error) in
-//            if (error != nil) {
-//                XCTAssert(false, "Async error: \(error)")
-//            }
-//        }
-//
-//    }
+    func testObjectCounting() {
+        var expectation = expectationWithDescription("create")
+        
+        hook?.collection("items").create([ "type": "toCount" ]).onSuccess{ (data) in
+            if (data != nil) {
+                self.hook?.collection("items").count().onSuccess{ (data) in
+                    XCTAssertNotNil(data.int, "Count must return something");
+                    expectation.fulfill()
+                }
+            } else {
+                XCTFail("Can't create test item")
+            }
+            
+        }
+        
+        // Expectation timeout
+        waitForExpectationsWithTimeout(10) { (error) in
+            if (error != nil) {
+                XCTAssert(false, "Async error: \(error)")
+            }
+        }
+    }
     
 }

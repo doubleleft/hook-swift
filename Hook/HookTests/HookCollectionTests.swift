@@ -132,27 +132,27 @@ class HookCollectionTests: XCTestCase {
         }
     }
     
-    func testConnectionError() {
-        var expectation = expectationWithDescription("credentialsError")
-        
-        var hook = Hook.Client(app_id: "1", key: "-", endpoint: "asdasdadsasd");
-        hook.collection("items").create([ "name": "invalidCredentials"]).onSuccess({ (data) in
-            XCTFail("Can't call onSuccess with invalid auth-key")
-            
-            expectation.fulfill()
-        }).onError({ (data) in
-            XCTAssert(true, "Called onError with invalid URL")
-            
-            expectation.fulfill()
-        })
-        
-        // Expectation timeout
-        waitForExpectationsWithTimeout(10) { (error) in
-            if (error != nil) {
-                XCTAssert(false, "Async error: \(error)")
-            }
-        }
-    }
+//    func testConnectionError() {
+//        var expectation = expectationWithDescription("credentialsError")
+//        
+//        var hook = Hook.Client(app_id: "1", key: "-", endpoint: "asdasdadsasd");
+//        hook.collection("items").create([ "name": "invalidCredentials"]).onSuccess({ (data) in
+//            XCTFail("Can't call onSuccess with invalid auth-key")
+//            
+//            expectation.fulfill()
+//        }).onError({ (data) in
+//            XCTAssert(true, "Called onError with invalid URL")
+//            
+//            expectation.fulfill()
+//        })
+//        
+//        // Expectation timeout
+//        waitForExpectationsWithTimeout(10) { (error) in
+//            if (error != nil) {
+//                XCTAssert(false, "Async error: \(error)")
+//            }
+//        }
+//    }
     
     func testCredentialsError() {
         var expectation = expectationWithDescription("credentialsError")

@@ -36,7 +36,7 @@ class HookTests: XCTestCase {
             } else {
                 XCTFail("Can't retrieve 'name' key of object");
             }
-            XCTAssertNotNil(data["_id"].string, "Object must have an Id")
+            XCTAssertNotNil(data["_id"].int, "Object must have an Id")
             
             expectation.fulfill()
         }).onError({ (data) in
@@ -54,7 +54,7 @@ class HookTests: XCTestCase {
     }
     
     func testObjectDeletion() {
-        var expectation = expectationWithDescription("create")
+        var expectation = expectationWithDescription("delete")
         
         hook?.collection("items").create([
             "type": "toDelete"
@@ -73,7 +73,10 @@ class HookTests: XCTestCase {
                 expectation.fulfill()
             }
             
-        }
+        }.onError({ (data) in
+            XCTFail("Ops, something wen't wrong and we couldn't create this item")
+            expectation.fulfill()
+        })
         
         // Expectation timeout
         waitForExpectationsWithTimeout(10) { (error) in
@@ -84,7 +87,7 @@ class HookTests: XCTestCase {
     }
     
     func testObjectCounting() {
-        var expectation = expectationWithDescription("create")
+        var expectation = expectationWithDescription("count")
         
         hook?.collection("items").create([ "type": "toCount" ]).onSuccess{ (data) in
             if (data != nil) {
@@ -94,9 +97,53 @@ class HookTests: XCTestCase {
                 }
             } else {
                 XCTFail("Can't create test item")
-            }
-            
+                expectation.fulfill()
+            }   
         }
+        
+        // Expectation timeout
+        waitForExpectationsWithTimeout(10) { (error) in
+            if (error != nil) {
+                XCTAssert(false, "Async error: \(error)")
+            }
+        }
+    }
+    
+    func testConnectionError() {
+        var expectation = expectationWithDescription("credentialsError")
+        
+        var hook = Hook.Client(app_id: "1", key: "-", endpoint: "http://123.123.0.123:4665/");
+        hook.collection("items").create([ "name": "invalidCredentials"]).onSuccess({ (data) in
+            XCTFail("Can't call onSuccess with invalid auth-key")
+            
+            expectation.fulfill()
+        }).onError({ (data) in
+            XCTAssert(true, "Called onError with invalid URL")
+            
+            expectation.fulfill()
+        })
+        
+        // Expectation timeout
+        waitForExpectationsWithTimeout(10) { (error) in
+            if (error != nil) {
+                XCTAssert(false, "Async error: \(error)")
+            }
+        }
+    }
+    
+    func testCredentialsError() {
+        var expectation = expectationWithDescription("credentialsError")
+        
+        var hook = Hook.Client(app_id: "1", key: "09c835703df4f78da6fffe957d2e2b61", endpoint: "http://localhost:4665/");
+        hook.collection("items").create([ "name": "invalidCredentials"]).onSuccess({ (data) in
+            XCTFail("Can't call onSuccess with invalid auth-key")
+            
+            expectation.fulfill()
+        }).onError({ (data) in
+            XCTAssert(true, "Called onError with invalid auth-key")
+            
+            expectation.fulfill()
+        })
         
         // Expectation timeout
         waitForExpectationsWithTimeout(10) { (error) in

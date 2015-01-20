@@ -16,7 +16,7 @@ let AUTH_TOKEN_EXPIRATION : String = "hook-auth-token-expiration";
 public class Auth {
     var client : Client;
 
-    var currentUser : JSON? = nil;
+    public var currentUser : JSON? = nil;
 
     init(client: Client) {
         self.client = client;
@@ -36,7 +36,7 @@ public class Auth {
         return self.client.storage.get(self.client.app_id + "-" + AUTH_TOKEN_KEY);
     }
 
-    public func register(data: [String: AnyObject]? = nil) -> Request {
+    public func register(data: [String: AnyObject]) -> Request {
         var req = self.client.post("auth/email", data: data);
 
         req.onSuccess { (response) in

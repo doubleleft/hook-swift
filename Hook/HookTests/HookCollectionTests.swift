@@ -9,7 +9,7 @@
 import XCTest
 import Hook
 
-class HookTests: XCTestCase {
+class HookCollectionTests: XCTestCase {
     
     var hook : Hook.Client?
     

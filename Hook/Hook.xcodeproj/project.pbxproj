@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		1B141DDF1A6B55C800FB8754 /* Hook.h in Headers */ = {isa = PBXBuildFile; fileRef = 1B141DDE1A6B55C800FB8754 /* Hook.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		1B141DE51A6B55C800FB8754 /* Hook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B141DDA1A6B55C700FB8754 /* Hook.framework */; };
-		1B141DEC1A6B55C800FB8754 /* HookTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B141DEB1A6B55C800FB8754 /* HookTests.swift */; };
+		1B141DEC1A6B55C800FB8754 /* HookCollectionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B141DEB1A6B55C800FB8754 /* HookCollectionTests.swift */; };
 		1B141DF31A6B55DD00FB8754 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B1D3CE61A6740B400480DD0 /* libsqlite3.dylib */; };
 		1B141DF41A6B55ED00FB8754 /* Storage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B1D3CE81A6AF21200480DD0 /* Storage.swift */; };
 		1B141DF51A6B55ED00FB8754 /* Auth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B41B4681A62FF51006C359D /* Auth.swift */; };
@@ -28,7 +28,9 @@
 		1B733F611A6302C900F2F251 /* Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B41B46E1A62FF51006C359D /* Request.swift */; };
 		1B733F621A6302C900F2F251 /* System.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B41B46F1A62FF51006C359D /* System.swift */; };
 		1BBC65F31A62FFB5004E4836 /* Hook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1BBC65E81A62FFB5004E4836 /* Hook.framework */; };
-		C42DC12E1A6D5933006674D3 /* HookTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B141DEB1A6B55C800FB8754 /* HookTests.swift */; };
+		C41A431D1A6EBD47003A4CC7 /* HookAuthTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C41A431C1A6EBD47003A4CC7 /* HookAuthTests.swift */; };
+		C41A431E1A6EBD47003A4CC7 /* HookAuthTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C41A431C1A6EBD47003A4CC7 /* HookAuthTests.swift */; };
+		C42DC12E1A6D5933006674D3 /* HookCollectionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B141DEB1A6B55C800FB8754 /* HookCollectionTests.swift */; };
 		C44D77CD1A6D65A700A6CAC1 /* SwiftyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = C44D77CC1A6D65A700A6CAC1 /* SwiftyJSON.swift */; };
 		C44D77CE1A6D65A700A6CAC1 /* SwiftyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = C44D77CC1A6D65A700A6CAC1 /* SwiftyJSON.swift */; };
 		C44D77CF1A6D6B3B00A6CAC1 /* SwiftyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = C44D77CC1A6D65A700A6CAC1 /* SwiftyJSON.swift */; };
@@ -135,7 +137,7 @@
 		1B141DDE1A6B55C800FB8754 /* Hook.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Hook.h; sourceTree = "<group>"; };
 		1B141DE41A6B55C800FB8754 /* HookTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HookTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		1B141DEA1A6B55C800FB8754 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		1B141DEB1A6B55C800FB8754 /* HookTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HookTests.swift; sourceTree = "<group>"; };
+		1B141DEB1A6B55C800FB8754 /* HookCollectionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HookCollectionTests.swift; sourceTree = "<group>"; };
 		1B1D3CE61A6740B400480DD0 /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
 		1B1D3CE81A6AF21200480DD0 /* Storage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Storage.swift; path = ../Hook/Source/Storage.swift; sourceTree = "<group>"; };
 		1B1D3D1E1A6B1D6600480DD0 /* SQLite.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SQLite.xcodeproj; path = ../vendor/SQLite.swift/SQLite.xcodeproj; sourceTree = "<group>"; };
@@ -149,6 +151,7 @@
 		1B41B46F1A62FF51006C359D /* System.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = System.swift; path = Source/System.swift; sourceTree = "<group>"; };
 		1BBC65E81A62FFB5004E4836 /* Hook.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Hook.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		1BBC65F21A62FFB5004E4836 /* HookTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HookTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		C41A431C1A6EBD47003A4CC7 /* HookAuthTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HookAuthTests.swift; sourceTree = "<group>"; };
 		C44D77B91A6D61E100A6CAC1 /* Alamofire.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Alamofire.xcodeproj; path = ../vendor/Alamofire/Alamofire.xcodeproj; sourceTree = "<group>"; };
 		C44D77CC1A6D65A700A6CAC1 /* SwiftyJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SwiftyJSON.swift; path = ../vendor/SwiftyJSON/Source/SwiftyJSON.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -209,7 +212,8 @@
 		1B141DE81A6B55C800FB8754 /* HookTests */ = {
 			isa = PBXGroup;
 			children = (
-				1B141DEB1A6B55C800FB8754 /* HookTests.swift */,
+				C41A431C1A6EBD47003A4CC7 /* HookAuthTests.swift */,
+				1B141DEB1A6B55C800FB8754 /* HookCollectionTests.swift */,
 				1B141DE91A6B55C800FB8754 /* Supporting Files */,
 			);
 			path = HookTests;
@@ -547,8 +551,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1B141DEC1A6B55C800FB8754 /* HookTests.swift in Sources */,
+				1B141DEC1A6B55C800FB8754 /* HookCollectionTests.swift in Sources */,
 				C44D77D01A6D6B3C00A6CAC1 /* SwiftyJSON.swift in Sources */,
+				C41A431E1A6EBD47003A4CC7 /* HookAuthTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -571,8 +576,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C42DC12E1A6D5933006674D3 /* HookTests.swift in Sources */,
+				C42DC12E1A6D5933006674D3 /* HookCollectionTests.swift in Sources */,
 				C44D77CF1A6D6B3B00A6CAC1 /* SwiftyJSON.swift in Sources */,
+				C41A431D1A6EBD47003A4CC7 /* HookAuthTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

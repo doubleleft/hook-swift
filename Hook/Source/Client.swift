@@ -15,12 +15,12 @@ public class Client {
                app_id : String,
                key : String;
 
-    var storage : Storage;
-
-    var auth : Auth {
+    public var auth : Auth {
         return Auth(client: self);
     };
 
+    var storage : Storage;
+    
     var keys : KeyValue {
         return KeyValue(client: self);
     };

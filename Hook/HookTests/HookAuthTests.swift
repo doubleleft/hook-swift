@@ -27,11 +27,12 @@ class HookAuthTests: XCTestCase {
         var expectation = expectationWithDescription("credentialsError")
         
         var i = arc4random()
-        hook!.auth.register(["email": "test\(i)@test.com", "password": "qwerty"]).onSuccess{ (data) in
-            print("")
-            XCTAssert( self.hook?.auth.currentUser == nil, "User must be present after creation" )
+        hook!.auth.register(["email": "test\(i)@test.com", "password": "qwerty"])
+            .onSuccess{ (data) in
+            XCTAssert( self.hook?.auth.currentUser != nil, "User must be present after creation" )
             expectation.fulfill()
-        }.onError{ (data) in
+        }
+            .onError{ (data) in
             XCTFail("Could not create the user")
             expectation.fulfill()
         }

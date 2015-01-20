@@ -112,7 +112,7 @@ public class Auth {
     }
 
     func registerToken(data : JSON) {
-        if data["token"].stringValue != "" {
+        if data["token"].dictionaryObject? != nil {
             self.client.storage.set(self.client.app_id + "-" + AUTH_TOKEN_KEY, value: data["token"]["token"].stringValue);
             self.client.storage.set(self.client.app_id + "-" + AUTH_TOKEN_EXPIRATION, value: data["token"]["expire_at"].stringValue);
 

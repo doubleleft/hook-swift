@@ -15,8 +15,10 @@ public class Client {
                app_id : String,
                key : String;
 
+    var _auth : Auth?
     public var auth : Auth {
-        return Auth(client: self);
+        if _auth == nil { _auth = Auth(client: self) }
+        return _auth!;
     };
 
     var storage : Storage;

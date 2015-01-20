@@ -48,6 +48,7 @@ public class Request {
 
     public func onSuccess(completionHandler: (JSON) -> Void) -> Self {
         self.request.responseString { (request, response, str, error) in
+            //print("GOT: \(str)")
             if response?.statusCode < 400 {
                 if let data = str?.dataUsingEncoding(NSUTF8StringEncoding) {
                     completionHandler(JSON(data: data));

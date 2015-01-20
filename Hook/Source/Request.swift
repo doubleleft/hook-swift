@@ -48,10 +48,12 @@ public class Request {
 
     public func onSuccess(completionHandler: (JSON) -> Void) -> Self {
         self.request.responseString { (request, response, str, error) in
-            if let data = str?.dataUsingEncoding(NSUTF8StringEncoding) {
-                completionHandler(JSON(data: data));
-            } else {
-                println("Hook.Request: SOMETHING IS WRONG \(str)")
+            if response?.statusCode < 400 {
+                if let data = str?.dataUsingEncoding(NSUTF8StringEncoding) {
+                    completionHandler(JSON(data: data));
+                } else {
+                    println("Hook.Request: SOMETHING IS WRONG \(str)")
+                }
             }
         }
         return self
@@ -59,8 +61,16 @@ public class Request {
 
     public func onError(completionHandler: (JSON) -> Void) -> Self {
         self.request.responseString { (request, response, str, error) in
-            if let data = str?.dataUsingEncoding(NSUTF8StringEncoding) {
-                completionHandler(JSON(data: data));
+            if error?.code > 0 || response?.statusCode >= 400 {
+                println("ERROR ERROR ERROR \(response?.statusCode)")
+                if let data = str?.dataUsingEncoding(NSUTF8StringEncoding) {
+                    completionHandler(JSON(data: data));
+                } else if let e:NSError = error? {
+                    completionHandler(JSON([
+                        "code": e.code,
+                        "error": e.localizedDescription,
+                    ]))
+                }
             }
         }
         return self
@@ -77,8 +87,13 @@ public class Request {
                 if let data = str?.dataUsingEncoding(NSUTF8StringEncoding) {
                     completionHandler(JSON(data: data));
                 }
+            } else if let e:NSError = error? {
+                completionHandler(JSON([
+                    "code": e.code,
+                    "error": e.localizedDescription,
+                    ]))
             } else {
-                completionHandler(JSON.nullJSON);
+                completionHandler(JSON.nullJSON)
             }
         }
         return self;

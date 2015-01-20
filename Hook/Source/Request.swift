@@ -61,7 +61,7 @@ public class Request {
 
     public func onError(completionHandler: (JSON) -> Void) -> Self {
         self.request.responseString { (request, response, str, error) in
-            if error?.code > 0 || response?.statusCode >= 400 {
+            if error != nil || response?.statusCode >= 400 {
                 println("ERROR ERROR ERROR \(response?.statusCode)")
                 if let data = str?.dataUsingEncoding(NSUTF8StringEncoding) {
                     completionHandler(JSON(data: data));

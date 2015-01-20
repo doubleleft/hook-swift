@@ -246,5 +246,15 @@ public class Collection {
 
         return query;
     }
+    
+    public func onSuccess(completionHandler: (JSON) -> Void) -> Request {
+        return self.get().onSuccess(completionHandler);
+    }
+    public func onError(completionHandler: (JSON) -> Void) -> Request {
+        return self.get().onError(completionHandler);
+    }
+    public func onComplete(completionHandler: (JSON) -> Void) -> Request {
+        return self.get().onComplete(completionHandler);
+    }
 
 }

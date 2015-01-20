@@ -90,15 +90,38 @@ class HookTests: XCTestCase {
         var expectation = expectationWithDescription("count")
         
         hook?.collection("items").create([ "type": "toCount" ]).onSuccess{ (data) in
-            if (data != nil) {
-                self.hook?.collection("items").count().onSuccess{ (data) in
-                    XCTAssertNotNil(data.int, "Count must return something");
-                    expectation.fulfill()
-                }
-            } else {
-                XCTFail("Can't create test item")
+            println(".")
+            self.hook?.collection("items").filter(["type": "toCount"]).count().onSuccess{ (data) in
+                XCTAssertGreaterThan(data.int!, 0, "Count must be greater then 0");
                 expectation.fulfill()
-            }   
+            }
+        }
+        
+        // Expectation timeout
+        waitForExpectationsWithTimeout(10) { (error) in
+            if (error != nil) {
+                XCTAssert(false, "Async error: \(error)")
+            }
+        }
+    }
+
+    func testObjectFiltering() {
+        var expectation = expectationWithDescription("filter")
+        
+        hook?.collection("items").create([ "type": "toFilter" ]).onSuccess{ (data) in
+            println(".")
+            self.hook?.collection("items").filter(["type": "toFilter"]).onSuccess{ (data) in
+            
+                var allEqual = true
+                for item in data.arrayValue {
+                    if item["type"].string != "toFilter" {
+                        allEqual = false
+                    }
+                }
+                XCTAssertTrue(allEqual, "Filter returned unexpected items!")
+                expectation.fulfill()
+                
+            }
         }
         
         // Expectation timeout
@@ -112,7 +135,7 @@ class HookTests: XCTestCase {
     func testConnectionError() {
         var expectation = expectationWithDescription("credentialsError")
         
-        var hook = Hook.Client(app_id: "1", key: "-", endpoint: "http://123.123.0.123:4665/");
+        var hook = Hook.Client(app_id: "1", key: "-", endpoint: "asdasdadsasd");
         hook.collection("items").create([ "name": "invalidCredentials"]).onSuccess({ (data) in
             XCTFail("Can't call onSuccess with invalid auth-key")
             
